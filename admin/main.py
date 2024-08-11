@@ -79,7 +79,8 @@ def connect_and_send(filename, addr, to_send_list=[]):
             ack = s.recv(BUFFER_SIZE).decode()
             if ack == 'STARTTOSEND':
                 for i in to_send_list:
-                    s.sendall(i.encode())
+
+                    s.sendall(f"{i[0]} {i[1]}".encode())
                     data = s.recv(BUFFER_SIZE).decode()
                     if data != 'NEXT': 
                         logging.warning(f"Expected NEXT but got {data}")
@@ -188,9 +189,10 @@ if __name__ == "__main__":
                     print("Invalid host names list syntax")
             else:
                 print("Invalid syntax")
-                print("Usage: addgroup <group_name> [(<hostname>, <port>), ...]")
+                print("Usage: addgroup <group_name> [(<hostname>,<port>), ...]")
+                print("NOTE: Please dont give spaces in the list of users")
                 print("You can add user later as well")
-        elif cmdl[0].lower() == 'adduser':
+        elif cmdl[0].lower() == 'addusers':
             if len(cmdl) == 3:
                 l = cmdl[1]
                 group = cmdl[2]
@@ -198,13 +200,14 @@ if __name__ == "__main__":
                     print("Group does not exist")
                     continue
                 try:
-                    groups[group] = eval(l)
+                    groups[group].extend(eval(l))
                 except SyntaxError as e:
                     print("Invalid host names list syntax")
                 
             else:
                 print("Invalid syntax")
                 print("Usage: addusers [(<hostname>, <port>), ...] <group_name>")
+                print("NOTE: Please dont give spaces in the list of users")
         elif cmdl[0].lower() == 'group':
             if len(cmdl) == 2:
                 group = cmdl[1]

@@ -11,7 +11,7 @@ from cryptography.hazmat.primitives.asymmetric import padding, rsa
 from cryptography.hazmat.primitives import serialization
 
 SERVER_HOST = "127.0.0.1"
-SERVER_PORT = 5001
+SERVER_PORT = 1234
 BUFFER_SIZE = 4096
 SEPARATOR = "<SEPARATOR>"
 CHILDSIZE = 2
