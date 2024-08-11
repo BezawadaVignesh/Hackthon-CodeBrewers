@@ -1,0 +1,18 @@
+def connect_to_server(host, port, max_retries=5, retry_delay=5):
+    client_socket = None
+    for attempt in range(max_retries):
+        try:
+            print(f"Attempting to connect to {host}:{port} (Attempt {attempt + 1})")
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect((host, port))
+            print(f"Connected to {host}:{port}")
+            return client_socket
+        except (socket.error, ConnectionRefusedError) as e:
+            print(f"Connection failed: {e}")
+            if attempt < max_retries - 1:
+                print(f"Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+            else:
+                print("Max retries reached. Unable to connect.")
+    
+    return None
