@@ -1,4 +1,13 @@
 # Hackthon-CodeBrewers
+## Requirements
+ - cryptography
+   ```
+   python -m pip install cryptography
+   ```
+   or
+   ```
+   pip install cryptography
+   ```
 ## To Use
  - Create as many as user folders as needed (it can be on the same computer or different computer on the same network)
  - Ensure to place server.py present in that folder and run
